@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  proxyServer: 'https://uadata-proxy.vercel.app',
 };

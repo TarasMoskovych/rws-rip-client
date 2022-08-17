@@ -1,0 +1,9 @@
+<div class="statistic">
+  <ng-container *ngIf="statistic$ | async as statistic">
+    <h1>Орієнтовні втрати противника склали:</h1>
+    <dl *ngFor="let item of statistic">
+      <dt>{{ item.data[0].val }}</dt>
+      <dd>{{ item.title }}</dd>
+    </dl>
+  </ng-container>
+</div>
