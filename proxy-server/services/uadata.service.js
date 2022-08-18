@@ -31,13 +31,20 @@ class UadataService {
   }
 
   _parseResponse(response) {
-    return response.map(({ title, long_title, data }) => {
-      return {
-        title,
-        description: long_title,
-        data: [data[data.length - 1], data[data.length - 2]],
-      };
-    });
+    const lastUpdated = response[0].data[response[0].data.length - 1].at;
+
+    return {
+      lastUpdated,
+      currentDay: Math.round((new Date(lastUpdated).getTime() - new Date('Feb 24 2022 03:40:00').getTime()) / (1000 * 60 * 60 * 24)) + 1,
+      data: response.map(({ title, long_title, data }, idx) => {
+        return {
+          id: this.categories[idx],
+          title,
+          long_title,
+          data: [data[data.length - 1], data[data.length - 2]],
+        };
+      }),
+    };
   }
 }
 
