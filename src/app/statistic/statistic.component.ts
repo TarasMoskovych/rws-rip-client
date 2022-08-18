@@ -9,7 +9,7 @@ import { IStatistic, UadataService } from './services';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StatisticComponent implements OnInit {
-  statistic$!: Observable<IStatistic[]>;
+  statistic$!: Observable<IStatistic>;
 
   constructor(
     private readonly uadataService: UadataService,

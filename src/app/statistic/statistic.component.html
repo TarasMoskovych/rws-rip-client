@@ -1,9 +1,17 @@
 <div class="statistic">
   <ng-container *ngIf="statistic$ | async as statistic">
-    <h1>Орієнтовні втрати противника склали:</h1>
-    <dl *ngFor="let item of statistic">
-      <dt>{{ item.data[0].val }}</dt>
-      <dd>{{ item.title }}</dd>
-    </dl>
+    <header>
+      <h1>Орієнтовні бойові втрати противника</h1>
+      <p>Дані: uadata станом на {{ statistic.lastUpdated | date : 'dd.MM.yyyy' }}</p>
+      <p>{{ statistic.currentDay }} день війни</p>
+    </header>
+    <main>
+      <ul>
+        <app-statistic-item
+          *ngFor="let item of statistic.data"
+          [item]="item"
+        ></app-statistic-item>
+      </ul>
+    </main>
   </ng-container>
 </div>
