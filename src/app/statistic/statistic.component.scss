@@ -1,12 +1,135 @@
+$sm-min-screen: 480px;
+$md-min-screen: 768px;
+$lg-min-screen: 950px;
+
 .statistic {
-  header {
-    background-color: #FBEBD2;
+  &__header {
+    background-color: var(--primary-background-color);
+    box-shadow: 0 2px 4px 0 rgb(0 0 0 / 16%);
     text-align: center;
+    margin-bottom: 20px;
+    line-height: 0.8;
+    width: 100%;
+
+    @media screen and (min-width: $md-min-screen) {
+      margin-bottom: 0;
+      position: fixed;
+      z-index: 1;
+    }
+
+    &-wrapper {
+      padding-bottom: 15px;
+    }
+
+    h1,
+    h2 {
+      color: var(--primary-title-color);
+      padding: 0 5px;
+    }
+
+    h1 {
+      &:first-of-type {
+        font-weight: var(--font-weight-thin);
+      }
+    }
+
+    h2 {
+      font-weight: var(--font-weight-bold);
+    }
+
+    p {
+      color: var(--primary-text-color);
+      margin: 0 auto;
+      line-height: 2;
+    }
   }
 
-  ul {
-    list-style-type: none;
-    padding: 0;
-    width: 100%;
+  &__wrapper {
+    padding: 0 15px;
+
+    @media screen and (min-width: $md-min-screen) {
+      padding-top: 180px;
+    }
+  }
+
+  &__container {
+    app-statistic-item {
+      &:nth-child(even) ::ng-deep .item {
+        border-top-color: var(--primary-border-color);
+      }
+
+      &:last-child ::ng-deep .item {
+        border-top-color: var(--secondary-border-color);
+      }
+    }
+
+    @media screen and (min-width: $sm-min-screen) {
+      column-gap: 20px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(5, 1fr);
+      row-gap: 20px;
+      justify-content: center;
+
+      app-statistic-item {
+        &:last-child ::ng-deep .item {
+          right: calc(50% + 10px);
+        }
+
+        &:nth-child(even) ::ng-deep .item {
+          border-top-color: var(--secondary-border-color);
+        }
+
+        &:nth-child(4n + 0),
+        &:nth-child(4n + 1) {
+          ::ng-deep .item {
+            border-top-color: var(--primary-border-color);
+          }
+        }
+      }
+    }
+
+    @media screen and (min-width: $lg-min-screen) {
+      column-gap: 20px;
+      display: grid;
+      grid-template-columns: repeat(3, 25%);
+      grid-template-rows: repeat(4, 1fr);
+      row-gap: 20px;
+      justify-content: center;
+
+      app-statistic-item {
+        &:last-child ::ng-deep .item {
+          right: auto;
+        }
+
+        &:nth-child(3n + 2) ::ng-deep .item {
+          top: 120px;
+        }
+
+        &:nth-child(4n + 0),
+        &:nth-child(4n + 1) {
+          ::ng-deep .item {
+            border-top-color: var(--secondary-border-color);
+          }
+        }
+
+        &:nth-child(even) ::ng-deep .item {
+          border-top-color: var(--primary-border-color);
+        }
+      }
+    }
+  }
+
+  &__footer {
+    font-size: 11px;
+    text-align: center;
+
+    p {
+      margin-top: 25px;
+    }
+
+    a {
+      color: hsl(228, 45%, 44%);
+    }
   }
 }

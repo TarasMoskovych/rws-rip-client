@@ -1,17 +1,30 @@
 <div class="statistic">
-  <ng-container *ngIf="statistic$ | async as statistic">
-    <header>
-      <h1>Орієнтовні бойові втрати противника</h1>
-      <p>Дані: uadata станом на {{ statistic.lastUpdated | date : 'dd.MM.yyyy' }}</p>
-      <p>{{ statistic.currentDay }} день війни</p>
+  <div *ngIf="statistic$ | async as statistic; else loader" appContentAnimate>
+    <header class="statistic__header">
+      <div class="statistic__header-wrapper">
+        <h1>Орієнтовні бойові втрати противника</h1>
+        <h1>{{ statistic.currentDay }} день війни</h1>
+        <p>Дані станом на {{ statistic.lastUpdated | date : 'dd.MM.yyyy' }}</p>
+      </div>
     </header>
-    <main>
-      <ul>
-        <app-statistic-item
-          *ngFor="let item of statistic.data"
-          [item]="item"
-        ></app-statistic-item>
-      </ul>
+
+    <main @scaleIn class="statistic__wrapper">
+      <div class="statistic__container">
+        <ng-container *ngFor="let item of statistic.data; let isLast = last">
+          <div *ngIf="isLast"></div>
+          <app-statistic-item [item]="item"></app-statistic-item>
+        </ng-container>
+      </div>
     </main>
-  </ng-container>
+
+    <footer class="statistic__footer">
+      <p>
+        Відкритий Український хаб даних з доступом по Web та API @
+        <a href="https://github.com/uadata" target="_blank">uadata.net</a>
+      </p>
+    </footer>
+  </div>
+  <ng-template #loader>
+    <app-loader></app-loader>
+  </ng-template>
 </div>

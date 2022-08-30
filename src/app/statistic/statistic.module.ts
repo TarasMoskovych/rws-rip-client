@@ -3,12 +3,15 @@ import { CommonModule } from '@angular/common';
 
 import { StatisticComponent } from './statistic.component';
 import { UadataService } from './services';
-import { StatisticItemComponent } from './components';
+import { LoaderComponent, StatisticItemComponent } from './components';
+import { ContentAnimateDirective } from './directives';
 
 @NgModule({
   declarations: [
     StatisticComponent,
     StatisticItemComponent,
+    LoaderComponent,
+    ContentAnimateDirective,
   ],
   providers: [
     UadataService,

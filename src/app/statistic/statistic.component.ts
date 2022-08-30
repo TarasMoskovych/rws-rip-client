@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { scaleIn } from './animations';
 import { IStatistic, UadataService } from './services';
 
 @Component({
@@ -7,6 +8,7 @@ import { IStatistic, UadataService } from './services';
   templateUrl: './statistic.component.html',
   styleUrls: ['./statistic.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [scaleIn],
 })
 export class StatisticComponent implements OnInit {
   statistic$!: Observable<IStatistic>;

@@ -1,10 +1,23 @@
-body,
-h1,
-p {
-  margin: 0;
-  padding: 0;
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;500;600&display=swap");
+
+:root {
+  --primary-background-color: hsl(0, 0%, 98%);
+  --primary-title-color: hsl(234, 12%, 34%);
+  --primary-text-color: hsl(229, 6%, 66%);
+
+  --primary-border-color: hsl(180, 62%, 55%);
+  --secondary-border-color: hsl(212, 86%, 64%);
+
+  --danger-color: hsl(0, 78%, 62%);
+
+  --font-weight-thin: 200;
+  --font-weight-regular: 400;
+  --font-weight-bold: 600;
 }
 
 body {
-  background-color: #FFFCF7;
+  background-color: var(--primary-background-color);
+  font-size: 15px;
+  font-family: "Montserrat", sans-serif;
+  margin: 0;
 }

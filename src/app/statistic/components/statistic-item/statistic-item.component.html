@@ -1,7 +1,10 @@
-<li>
-  <span class="value">
-    <span *ngIf="difference as diff" class="diff">+{{ diff }}</span>
-    <span>{{ item.data[0].val }}</span>
-  </span>
-  <span class="title">{{ item.title }}</span>
-</li>
+<div class="item">
+  <h2 class="item__title">
+    {{ item.title }}:
+    <p class="item__value">
+      {{ item.data[0].val }}
+      <span *ngIf="difference as diff" class="item__diff">+{{ diff }}</span>
+    </p>
+  </h2>
+  <p class="item__description">{{ item.long_title }}</p>
+</div>
