@@ -1,10 +1,10 @@
 <div class="item">
-  <h2 class="item__title">
+  <h2 class="item__title transition">
     {{ item.title }}:
-    <p class="item__value">
+    <p class="item__value transition">
       {{ item.total }}
       <span *ngIf="item.current as diff" class="item__diff">+{{ diff }}</span>
     </p>
   </h2>
-  <p class="item__description">{{ item.long_title }}</p>
+  <p class="item__description transition">{{ item.long_title }}</p>
 </div>

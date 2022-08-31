@@ -1,0 +1,75 @@
+@import "./../../../../assets/scss/variables";
+
+.header {
+  background-color: var(--color-beta);
+  box-shadow: var(--box-shadow-primary);
+  text-align: center;
+  margin-bottom: 20px;
+  line-height: 0.8;
+  width: 100%;
+
+  @media screen and (min-width: $md-min-screen) {
+    margin-bottom: 0;
+    position: fixed;
+    z-index: 1;
+  }
+
+  &__wrapper {
+    padding-bottom: 15px;
+  }
+
+  &__switch {
+    background: none;
+    border: 0;
+    cursor: pointer;
+    outline: none;
+    padding: 0;
+  }
+
+  &__img {
+    height: 40px;
+    width: 40px;
+
+    path {
+      transition: .3s;
+    }
+  }
+
+  &__actions {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    max-width: 1920px;
+    padding: 5px 15px 0;
+
+    @media screen and (min-width: $md-min-screen) {
+      justify-content: flex-end;
+    }
+  }
+
+  h1,
+  h2 {
+    color: var(--color-gamma);
+    padding: 0 5px;
+  }
+
+  h1 {
+    margin: 10px 0;
+
+    &:first-of-type {
+      font-weight: var(--font-weight-thin);
+      margin-top: 0;
+    }
+  }
+
+  h2 {
+    font-weight: var(--font-weight-bold);
+  }
+
+  p {
+    color: var(--color-delta);
+    margin: 0 auto;
+    line-height: 2;
+  }
+}

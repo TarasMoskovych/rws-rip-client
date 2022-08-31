@@ -1,23 +1,47 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;500;600&display=swap");
 
 :root {
-  --primary-background-color: hsl(0, 0%, 98%);
-  --primary-title-color: hsl(234, 12%, 34%);
-  --primary-text-color: hsl(229, 6%, 66%);
+  --color-alpha: #fafafa;
+  --color-beta: #fafafa;
+  --color-gamma: #4c4e61;
+  --color-delta: #a3a5ae;
+  --color-epsilon: #45d3d3;
+  --color-zeta: #549ef2;
+  --color-eta: #ea5353;
+  --color-theta: #005bbb;
+  --color-kappa: #ffd500;
 
-  --primary-border-color: hsl(180, 62%, 55%);
-  --secondary-border-color: hsl(212, 86%, 64%);
-
-  --danger-color: hsl(0, 78%, 62%);
+  --box-shadow-primary: 0 2px 4px 0 rgb(0 0 0 / 16%);
+  --box-shadow-secondary: 0px 30px 40px -20px var(--color-delta);
 
   --font-weight-thin: 200;
   --font-weight-regular: 400;
   --font-weight-bold: 600;
 }
 
+[theme="dark"] {
+  --color-alpha: #252630;
+  --color-beta: #393b49;
+  --color-gamma: #ededef;
+  --color-delta: #f6f6f7;
+  --color-epsilon: #3ebebe;
+  --color-zeta: #4c8eda;
+  --color-eta: #d34b4b;
+  --color-theta: #CD0000;
+  --color-kappa: #1F1A17;
+
+  --box-shadow-primary: 0 2px 4px 0 rgb(0, 0, 0);
+  --box-shadow-secondary: inset -10px -10px 15px rgba(0, 0, 0, 0.5), inset 10px 10px 15px rgba(123, 123, 123, 0.12);
+}
+
 body {
-  background-color: var(--primary-background-color);
+  background-color: var(--color-alpha);
   font-size: 15px;
   font-family: "Montserrat", sans-serif;
   margin: 0;
+  transition: background 0.3s;
+}
+
+.transition {
+  transition: .3s;
 }

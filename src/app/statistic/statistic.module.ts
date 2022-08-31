@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { StatisticComponent } from './statistic.component';
-import { UadataService } from './services';
-import { LoaderComponent, StatisticItemComponent } from './components';
+import { ThemeService, UadataService } from './services';
+import { HeaderComponent, LoaderComponent, StatisticItemComponent } from './components';
 import { ContentAnimateDirective } from './directives';
 
 @NgModule({
@@ -12,8 +12,10 @@ import { ContentAnimateDirective } from './directives';
     StatisticItemComponent,
     LoaderComponent,
     ContentAnimateDirective,
+    HeaderComponent,
   ],
   providers: [
+    ThemeService,
     UadataService,
   ],
   imports: [
@@ -23,4 +25,8 @@ import { ContentAnimateDirective } from './directives';
     StatisticComponent,
   ],
 })
-export class StatisticModule { }
+export class StatisticModule {
+  constructor(private readonly themeService: ThemeService) {
+    this.themeService.init();
+  }
+}

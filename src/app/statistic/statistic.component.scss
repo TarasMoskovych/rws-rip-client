@@ -1,49 +1,6 @@
-$sm-min-screen: 480px;
-$md-min-screen: 768px;
-$lg-min-screen: 950px;
+@import "./../../assets/scss/variables";
 
 .statistic {
-  &__header {
-    background-color: var(--primary-background-color);
-    box-shadow: 0 2px 4px 0 rgb(0 0 0 / 16%);
-    text-align: center;
-    margin-bottom: 20px;
-    line-height: 0.8;
-    width: 100%;
-
-    @media screen and (min-width: $md-min-screen) {
-      margin-bottom: 0;
-      position: fixed;
-      z-index: 1;
-    }
-
-    &-wrapper {
-      padding-bottom: 15px;
-    }
-
-    h1,
-    h2 {
-      color: var(--primary-title-color);
-      padding: 0 5px;
-    }
-
-    h1 {
-      &:first-of-type {
-        font-weight: var(--font-weight-thin);
-      }
-    }
-
-    h2 {
-      font-weight: var(--font-weight-bold);
-    }
-
-    p {
-      color: var(--primary-text-color);
-      margin: 0 auto;
-      line-height: 2;
-    }
-  }
-
   &__wrapper {
     padding: 0 15px;
 
@@ -55,11 +12,11 @@ $lg-min-screen: 950px;
   &__container {
     app-statistic-item {
       &:nth-child(even) ::ng-deep .item {
-        border-top-color: var(--primary-border-color);
+        border-top-color: var(--color-epsilon);
       }
 
       &:last-child ::ng-deep .item {
-        border-top-color: var(--secondary-border-color);
+        border-top-color: var(--color-zeta);
       }
     }
 
@@ -77,13 +34,13 @@ $lg-min-screen: 950px;
         }
 
         &:nth-child(even) ::ng-deep .item {
-          border-top-color: var(--secondary-border-color);
+          border-top-color: var(--color-zeta);
         }
 
         &:nth-child(4n + 0),
         &:nth-child(4n + 1) {
           ::ng-deep .item {
-            border-top-color: var(--primary-border-color);
+            border-top-color: var(--color-epsilon);
           }
         }
       }
@@ -109,12 +66,12 @@ $lg-min-screen: 950px;
         &:nth-child(4n + 0),
         &:nth-child(4n + 1) {
           ::ng-deep .item {
-            border-top-color: var(--secondary-border-color);
+            border-top-color: var(--color-zeta);
           }
         }
 
         &:nth-child(even) ::ng-deep .item {
-          border-top-color: var(--primary-border-color);
+          border-top-color: var(--color-epsilon);
         }
       }
     }
@@ -125,11 +82,12 @@ $lg-min-screen: 950px;
     text-align: center;
 
     p {
+      color: var(--color-delta);
       margin-top: 25px;
     }
 
     a {
-      color: hsl(228, 45%, 44%);
+      color: var(--color-zeta);
     }
   }
 }

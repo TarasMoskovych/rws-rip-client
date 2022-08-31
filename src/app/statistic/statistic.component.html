@@ -1,12 +1,6 @@
 <div class="statistic">
   <div *ngIf="statistic$ | async as statistic; else loader" appContentAnimate>
-    <header class="statistic__header">
-      <div class="statistic__header-wrapper">
-        <h1>Орієнтовні бойові втрати противника</h1>
-        <h1>{{ statistic.currentDay }} день війни</h1>
-        <p>Дані станом на {{ statistic.lastUpdated | date : 'dd.MM.yyyy' }}</p>
-      </div>
-    </header>
+    <app-header [statistic]="statistic"></app-header>
 
     <main @scaleIn class="statistic__wrapper">
       <div class="statistic__container">
@@ -18,7 +12,7 @@
     </main>
 
     <footer class="statistic__footer">
-      <p>
+      <p class="transition">
         Відкритий Український хаб даних з доступом по Web та API @
         <a href="https://github.com/uadata" target="_blank">uadata.net</a>
       </p>
