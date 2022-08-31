@@ -41,9 +41,10 @@ class UadataService {
           id: this.categories[idx],
           title,
           long_title,
-          data: [data[data.length - 1], data[data.length - 2]],
+          total: data[data.length - 1].val,
+          current: data[data.length - 1].val - data[data.length - 2].val,
         };
-      }),
+      }).sort((a, b) => b.current - a.current),
     };
   }
 }

@@ -23,5 +23,6 @@ export interface IStatisticItem {
   id: string;
   title: string;
   long_title: string;
-  data: Array<{ at: string; val: number }>;
+  total: number;
+  current: number;
 }
