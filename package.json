@@ -4,6 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start:prod": "ng build && http-server -p 8080 -c-1 dist/uadata-client",
+    "server": "cd proxy-server && npm run dev",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
