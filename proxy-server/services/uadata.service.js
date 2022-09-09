@@ -37,12 +37,14 @@ class UadataService {
       lastUpdated,
       currentDay: Math.round((new Date(lastUpdated).getTime() - new Date('Feb 24 2022 03:40:00').getTime()) / (1000 * 60 * 60 * 24)) + 1,
       data: response.map(({ title, long_title, data }, idx) => {
+        const current = data[data.length - 1].val - data[data.length - 2].val;
+
         return {
           id: this.categories[idx],
           title,
           long_title,
           total: data[data.length - 1].val,
-          current: data[data.length - 1].val - data[data.length - 2].val,
+          current: current > 0 ? current : 0,
         };
       }).sort((a, b) => b.current - a.current),
     };

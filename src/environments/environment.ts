@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  proxyServer: 'http://localhost:3000',
+  proxyServer: 'http://localhost:3001',
 };
 
 /*
