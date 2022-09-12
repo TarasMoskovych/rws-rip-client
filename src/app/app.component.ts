@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { SwUpdate, VersionReadyEvent } from '@angular/service-worker';
-import { filter } from 'rxjs';
+import { ServiceWorkerService } from './services/service-worker.service';
 
 @Component({
   selector: 'app-root',
@@ -9,13 +8,9 @@ import { filter } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnInit {
-  constructor(private readonly swUpdate: SwUpdate) { }
+  constructor(private readonly serviceWorker: ServiceWorkerService) { }
 
   ngOnInit(): void {
-    if (this.swUpdate.isEnabled) {
-      this.swUpdate.versionUpdates.pipe(
-        filter((evt): evt is VersionReadyEvent => evt.type === 'VERSION_READY'),
-      ).subscribe(() => window.location.reload());
-    }
+    this.serviceWorker.init();
   }
 }

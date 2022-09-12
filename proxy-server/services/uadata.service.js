@@ -19,9 +19,9 @@ class UadataService {
   }
 
   async getData(_, res) {
-    Promise.all(this._getAllRequests())
+    return Promise.all(this._getAllRequests())
       .then(this._parseResponse.bind(this))
-      .then(data => res.send(data));
+      .then(data => res ? res.send(data) : data);
   }
 
   _getAllRequests() {
