@@ -20,7 +20,8 @@ app.get('/api/statistic', uadataService.getData.bind(uadataService));
 
 app.post('/api/subscription', pushService.addSubscription.bind(pushService));
 
-app.post('/api/send-notification', pushService.sendNotification.bind(pushService));
+// will be called by cronjob
+app.get('/api/send-notification', pushService.sendNotification.bind(pushService));
 
 app.listen(PORT, () => console.log(`Server is running in port ${PORT}`));
 
