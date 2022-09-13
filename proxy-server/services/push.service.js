@@ -6,20 +6,26 @@ class PushService {
   constructor() {
     this.storageService = new JsonStorageService();
     this.uaDataService = new UadataService();
-    this.privateKey = process.env.PRIVATE_KEY || ''
+    this.publicKey = 'BPluQCnBsVK0TrXMgahymWFOglkCTXq7kahgk6LNa0dfgznWbbN7enGRr6ZGicH8TGK2dy5IjAgU6w5wVxPsFHg';
+    this.privateKey = process.env.PRIVATE_KEY || '';
 
     webpush.setVapidDetails(
       'mailto:https://uadata-client.vercel.app',
-      'BPluQCnBsVK0TrXMgahymWFOglkCTXq7kahgk6LNa0dfgznWbbN7enGRr6ZGicH8TGK2dy5IjAgU6w5wVxPsFHg',
+      this.publicKey,
       this.privateKey,
     );
   }
 
   async addSubscription(req, res) {
     const sub = req.body;
+    const { authorization } = req.headers;
+
+    if (authorization !== this.publicKey) {
+      return res.status(403).send({ message: 'Valid public key is required' });
+    }
 
     if (!sub?.endpoint) {
-      return res.status(400).send({ message: 'Request body is not valid.' })
+      return res.status(400).send({ message: 'Request body is not valid.' });
     }
 
     const subs = await this.storageService.getData();
@@ -48,11 +54,11 @@ class PushService {
       return res.status(403).send({ message: 'Valid token is required' });
     }
 
-    const statistic = await this.uaDataService.getData();
+    const { title, body } = await this.uaDataService.getDailyUpdates();
     const subs = await this.storageService.getData();
     const payload = {
-      title: `Втрати армії окупанта на ${statistic.lastUpdated}`,
-      body: `${statistic.data[0].current} вбитих і ${statistic.data[1].current} танків.`,
+      title,
+      body,
       icon: 'https://raw.githubusercontent.com/TarasMoskovych/uadata-client/main/src/assets/icons/icon-192x192.png',
     };
 

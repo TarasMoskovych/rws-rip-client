@@ -16,12 +16,85 @@ class UadataService {
       'ships',
       'auto',
     ];
+    this.categoriesDictionary = {
+      people: {
+        singular: 'вбитий',
+        plural: 'вбитих',
+      },
+      tanks: {
+        singular: 'танк',
+        plural: 'танків',
+      },
+      bbm: {
+        singular: 'бойова машина',
+        plural: 'бойових машин',
+      },
+      artilery: {
+        singular: 'артилерійська система',
+        plural: 'артилерійських систем',
+      },
+      rszv: {
+        singular: 'ракетна система залпового вогню',
+        plural: 'ракетних систем залпового вогню',
+      },
+      ppo: {
+        singular: 'система протиповітряної оборони',
+        plural: 'систем протиповітряної оборони',
+      },
+      planes: {
+        singular: 'літак',
+        plural: 'літаків',
+      },
+      helicopters: {
+        singular: 'гелікоптер',
+        plural: 'гелікоптерів',
+      },
+      bpla: {
+        singular: 'безпілотний літальний апарат',
+        plural: 'безпілотних літальних апаратів',
+      },
+      ships: {
+        singular: 'корабель',
+        plural: 'кораблів',
+      },
+      auto: {
+        singular: 'одиниця автомобільної техніки',
+        plural: 'одиниць автомобільної техніки',
+      },
+    };
   }
 
   async getData(_, res) {
     return Promise.all(this._getAllRequests())
       .then(this._parseResponse.bind(this))
       .then(data => res ? res.send(data) : data);
+  }
+
+  async getDailyUpdates() {
+    const statistic = await this.getData();
+    const categories = [];
+
+    for (let idx = 0; idx < statistic.data.length; idx++) {
+      if (categories.length === 3) {
+        break;
+      }
+
+      const category = statistic.data[idx];
+
+      if (category.current > 0) {
+        categories.push(`${category.current} ${this._getItemShortDescription(category.id, category.current)}`);
+      }
+    }
+
+   if (!categories.length) {
+    const { total } = statistic.data.find(({ id }) => id === 'people');
+    categories.push(`Загалом ${total} вбитих на ${statistic.currentDay} день війни`);
+   }
+
+   return {
+    title: `Втрати армії окупанта на ${statistic.lastUpdated}`,
+    body: categories.join(', '),
+   };
   }
 
   _getAllRequests() {
@@ -48,6 +121,10 @@ class UadataService {
         };
       }).sort((a, b) => b.current - a.current),
     };
+  }
+
+  _getItemShortDescription(id, value) {
+    return value > 1 ? this.categoriesDictionary[id].plural : this.categoriesDictionary[id].singular;
   }
 }
 

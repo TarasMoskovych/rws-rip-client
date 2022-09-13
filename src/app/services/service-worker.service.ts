@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { SwPush, SwUpdate, VersionReadyEvent } from '@angular/service-worker';
 import { EMPTY, filter, from, Observable, switchMap, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { LOCAL_STORAGE } from '../app.module';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,7 @@ export class ServiceWorkerService {
   private readonly sessionKey = 'uadata-client:subscriptions';
 
   constructor(
+    @Inject(LOCAL_STORAGE) private readonly storage: Storage,
     private readonly http: HttpClient,
     private readonly swUpdate: SwUpdate,
     private readonly swPush: SwPush,
@@ -29,7 +31,10 @@ export class ServiceWorkerService {
   private initUpdate(): void {
     this.swUpdate.versionUpdates.pipe(
       filter((evt): evt is VersionReadyEvent => evt.type === 'VERSION_READY'),
-    ).subscribe(() => window.location.reload());
+    ).subscribe(() => {
+      this.storage.removeItem(this.sessionKey);
+      window.location.reload();
+    });
   }
 
   private initPush(): Observable<void> {
@@ -39,14 +44,16 @@ export class ServiceWorkerService {
   }
 
   private addSubscription(sub: PushSubscriptionJSON): Observable<void> {
-    const data = JSON.parse(localStorage.getItem(this.sessionKey) as string) as PushSubscription;
+    const data = JSON.parse(this.storage.getItem(this.sessionKey) as string) as PushSubscription;
 
     if (data?.endpoint === sub.endpoint) {
       return EMPTY;
     }
 
-    return this.http.post<void>(`${environment.proxyServer}/api/subscription`, sub).pipe(
-      tap(() => localStorage.setItem(this.sessionKey, JSON.stringify(sub))),
+    return this.http.post<void>(`${environment.proxyServer}/api/subscription`, sub, {
+      headers: { authorization: environment.vapidPublicKey },
+    }).pipe(
+      tap(() => this.storage.setItem(this.sessionKey, JSON.stringify(sub))),
     );
   }
 }
