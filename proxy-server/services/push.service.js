@@ -56,14 +56,15 @@ class PushService {
 
     const { title, body } = await this.uaDataService.getDailyUpdates();
     const subs = await this.storageService.getData();
+    const expired = [];
     const payload = {
       title,
       body,
       icon: 'https://raw.githubusercontent.com/TarasMoskovych/uadata-client/main/src/assets/icons/icon-192x192.png',
     };
 
-    Promise.all(subs.map(sub => webpush.sendNotification(sub, JSON.stringify(this._getNotificationPayload(payload)))))
-      .then(() => res.status(200).json({ message: `Notification sent successfully to ${subs.length} subscribers.` }))
+    Promise.all(subs.map(sub => webpush.sendNotification(sub, JSON.stringify(this._getNotificationPayload(payload))).catch(() => expired.push(sub))))
+      .then(() => res.status(200).json({ message: `Notification sent to ${subs.length} subscribers.`, expiredEndpoints: expired.map((sub) => sub.endpoint) }))
       .catch(err => res.status(500).send(err));
   }
 
