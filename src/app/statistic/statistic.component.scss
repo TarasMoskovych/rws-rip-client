@@ -78,12 +78,18 @@
   }
 
   &__footer {
-    font-size: 11px;
+    margin: 25px 0 10px;
+    padding: 0 10px;
     text-align: center;
+
+    p,
+    a {
+      font-size: 11px;
+    }
 
     p {
       color: var(--color-delta);
-      margin-top: 25px;
+      margin: 3px 0 0;
     }
 
     a {
