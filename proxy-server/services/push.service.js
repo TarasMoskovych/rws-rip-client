@@ -64,8 +64,19 @@ class PushService {
     };
 
     Promise.all(subs.map(sub => webpush.sendNotification(sub, JSON.stringify(this._getNotificationPayload(payload))).catch(() => expired.push(sub))))
+      .then(() => this._removeExpiredSubscriptions(subs, expired))
       .then(() => res.status(200).json({ message: `Notification sent to ${subs.length} subscribers.`, expiredEndpoints: expired.map((sub) => sub.endpoint) }))
       .catch(err => res.status(500).send(err));
+  }
+
+  async _removeExpiredSubscriptions(all, expired) {
+    const subs = all.filter(({ endpoint }) => !expired.find(({ endpoint: expiredEndpoint }) => endpoint === expiredEndpoint));
+
+    if (all.length !== subs.length) {
+      await this.storageService.saveData(JSON.stringify(subs));
+    }
+
+    return subs;
   }
 
   _getNotificationPayload({ title, body, icon, btnTitle = '👍' }) {
