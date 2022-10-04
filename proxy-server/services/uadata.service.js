@@ -62,6 +62,7 @@ class UadataService {
         plural: 'одиниць автомобільної техніки',
       },
     };
+    this.topCategoriesCount = 5;
   }
 
   async getData(_, res) {
@@ -75,7 +76,7 @@ class UadataService {
     const categories = [];
 
     for (let idx = 0; idx < statistic.data.length; idx++) {
-      if (categories.length === 3) {
+      if (categories.length === this.topCategoriesCount) {
         break;
       }
 
