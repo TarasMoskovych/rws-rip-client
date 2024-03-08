@@ -12,6 +12,13 @@ app.use(cors({
   origin: process.env.PRODUCTION ? process.env.ORIGINS.split(' ') : '*',
 }));
 
+app.get('/', (req, res) => {
+  res.send({
+    status: 'OK',
+    date: new Date(),
+  });
+});
+
 app.get('/api/echo', (req, res) => {
   res.send({ message: 'Hello, world!' })
 });
