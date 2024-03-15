@@ -10,27 +10,31 @@
   }
 
   &__container {
-    app-statistic-item {
-      &:nth-child(even) ::ng-deep .item {
-        border-top-color: var(--color-epsilon);
-      }
+    max-width: 1920px;
+    margin: 0 auto;
 
+    .last {
+      display: none;
+    }
+
+    app-statistic-item {
+      &:nth-child(even) ::ng-deep .item,
       &:last-child ::ng-deep .item {
-        border-top-color: var(--color-zeta);
+        border-top-color: var(--color-epsilon);
       }
     }
 
     @media screen and (min-width: $sm-min-screen) {
       column-gap: 20px;
       display: grid;
+      grid-auto-rows: 1fr;
       grid-template-columns: repeat(2, 1fr);
-      grid-template-rows: repeat(5, 1fr);
       row-gap: 20px;
       justify-content: center;
 
       app-statistic-item {
         &:last-child ::ng-deep .item {
-          right: calc(50% + 10px);
+          border-top-color: var(--color-zeta);
         }
 
         &:nth-child(even) ::ng-deep .item {
@@ -50,15 +54,15 @@
       column-gap: 20px;
       display: grid;
       grid-template-columns: repeat(3, 25%);
-      grid-template-rows: repeat(4, 1fr);
       row-gap: 20px;
       justify-content: center;
 
-      app-statistic-item {
-        &:last-child ::ng-deep .item {
-          right: auto;
-        }
 
+      .last {
+        display: block;
+      }
+
+      app-statistic-item {
         &:nth-child(3n + 2) ::ng-deep .item {
           top: 120px;
         }

@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { scaleIn } from './animations';
-import { IStatistic, UadataService } from './services';
+import { IStatistic, StatisticService } from './services';
 
 @Component({
   selector: 'app-statistic',
@@ -14,10 +14,15 @@ export class StatisticComponent implements OnInit {
   statistic$!: Observable<IStatistic>;
 
   constructor(
-    private readonly uadataService: UadataService,
+    private readonly statisticService: StatisticService,
   ) { }
 
   ngOnInit(): void {
-    this.statistic$ = this.uadataService.getData();
+    this.statistic$ = this.statisticService.getData().pipe(
+      map((statistic) => ({
+        ...statistic,
+        data: statistic.data.slice(0, 14),
+      })),
+    );
   }
 }

@@ -9,7 +9,7 @@ import { LOCAL_STORAGE } from '../app.module';
   providedIn: 'root'
 })
 export class ServiceWorkerService {
-  private readonly sessionKey = 'uadata-client:subscriptions';
+  private readonly sessionKey = 'rws-rip-client:subscriptions';
 
   constructor(
     @Inject(LOCAL_STORAGE) private readonly storage: Storage,

@@ -1,9 +1,14 @@
 .item {
+  align-items: center;
+  background-color: var(--color-beta);
   box-sizing: border-box;
   border-radius: 5px;
   border-top: 3px solid var(--color-zeta);
   box-shadow: var(--box-shadow-secondary);
+  display: flex;
+  flex-wrap: wrap;
   height: 100%;
+  justify-content: space-between;
   margin: 15px 0;
   padding: 30px;
   position: relative;
@@ -15,6 +20,7 @@
   &__title {
     color: var(--color-gamma);
     margin: 0;
+    flex: 1 1 80px;
   }
 
   &__value {
@@ -29,8 +35,12 @@
     top: 2px;
   }
 
-  &__description {
-    color: var(--color-delta);
-    margin: 0;
+  &__image-wrapper {
+    margin: auto;
+    text-align: center;
+
+    img {
+      max-height: 48px;
+    }
   }
 }

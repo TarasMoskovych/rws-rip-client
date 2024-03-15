@@ -4,7 +4,7 @@ import { LOCAL_STORAGE } from 'src/app/app.module';
 
 @Injectable()
 export class ThemeService {
-  private readonly sessionKey = 'uadata-client:theme';
+  private readonly sessionKey = 'rws-rip-client:theme';
   private darkMode!: boolean;
 
   constructor(

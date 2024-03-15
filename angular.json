@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "uadata-client": {
+    "rws-rip-client": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -18,7 +18,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/uadata-client",
+            "outputPath": "dist/rws-rip-client",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -73,10 +73,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "uadata-client:build:production"
+              "browserTarget": "rws-rip-client:build:production"
             },
             "development": {
-              "browserTarget": "uadata-client:build:development"
+              "browserTarget": "rws-rip-client:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -84,7 +84,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "uadata-client:build"
+            "browserTarget": "rws-rip-client:build"
           }
         },
         "test": {

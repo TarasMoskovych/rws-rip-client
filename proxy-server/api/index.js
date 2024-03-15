@@ -2,10 +2,10 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const PORT = process.env.PORT || 3001;
-const { UadataService } = require('./services/uadata.service');
+const { russianWarshipRipService } = require('./services/russianwarship-rip.service');
 const { PushService } = require('./services/push.service');
-const uadataService = new UadataService();
-const pushService = new PushService();
+const rwsRipService = new russianWarshipRipService();
+const pushService = new PushService(rwsRipService);
 
 app.use(express.json({ extended: false }));
 app.use(cors({
@@ -23,7 +23,7 @@ app.get('/api/echo', (req, res) => {
   res.send({ message: 'Hello, world!' })
 });
 
-app.get('/api/statistic', uadataService.getData.bind(uadataService));
+app.get('/api/statistic', rwsRipService.getData.bind(rwsRipService));
 
 app.post('/api/subscription', pushService.addSubscription.bind(pushService));
 

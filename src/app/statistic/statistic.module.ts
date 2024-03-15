@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { StatisticComponent } from './statistic.component';
-import { ThemeService, UadataService } from './services';
+import { ThemeService, StatisticService } from './services';
 import { HeaderComponent, LoaderComponent, StatisticItemComponent } from './components';
 import { ContentAnimateDirective } from './directives';
 
@@ -15,8 +15,8 @@ import { ContentAnimateDirective } from './directives';
     HeaderComponent,
   ],
   providers: [
+    StatisticService,
     ThemeService,
-    UadataService,
   ],
   imports: [
     CommonModule,

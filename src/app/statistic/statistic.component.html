@@ -5,7 +5,7 @@
     <main @scaleIn class="statistic__wrapper">
       <div class="statistic__container">
         <ng-container *ngFor="let item of statistic.data; let isLast = last">
-          <div *ngIf="isLast"></div>
+          <div *ngIf="isLast" class="last"></div>
           <app-statistic-item [item]="item"></app-statistic-item>
         </ng-container>
       </div>
@@ -13,8 +13,8 @@
 
     <footer class="statistic__footer">
       <p class="transition">
-        Відкритий Український хаб даних з доступом по Web та API @
-        <a href="https://github.com/uadata" target="_blank">uadata.net</a>
+        Відкритий API-сервіс статистики ворожих втрат @
+        <a href="https://russianwarship.rip" target="_blank">russianwarship.rip</a>
       </p>
       <p>Copyright &copy; 2022</p>
     </footer>

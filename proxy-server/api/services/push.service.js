@@ -1,16 +1,15 @@
 const webpush = require('web-push');
 const { JsonStorageService } = require('./json-storage.service');
-const { UadataService } = require('./uadata.service');
 
 class PushService {
-  constructor() {
+  constructor(dataService) {
     this.storageService = new JsonStorageService();
-    this.uaDataService = new UadataService();
-    this.publicKey = 'BPluQCnBsVK0TrXMgahymWFOglkCTXq7kahgk6LNa0dfgznWbbN7enGRr6ZGicH8TGK2dy5IjAgU6w5wVxPsFHg';
-    this.privateKey = process.env.PRIVATE_KEY || '';
+    this.dataService = dataService;
+    this.publicKey = process.env.PUBLIC_KEY;
+    this.privateKey = process.env.PRIVATE_KEY;
 
     webpush.setVapidDetails(
-      'mailto:https://uadata-client.vercel.app',
+      'mailto:https://rws-rip-client.vercel.app',
       this.publicKey,
       this.privateKey,
     );
@@ -35,7 +34,7 @@ class PushService {
     } else {
       const payload = {
         title: 'Слава Україні!',
-        icon: 'https://raw.githubusercontent.com/TarasMoskovych/uadata-client/main/src/assets/icons/Ukraine.png',
+        icon: 'https://raw.githubusercontent.com/TarasMoskovych/rws-rip-client/main/src/assets/icons/Ukraine.png',
         btnTitle: 'Героям слава!'
       };
 
@@ -54,13 +53,13 @@ class PushService {
       return res.status(403).send({ message: 'Valid token is required' });
     }
 
-    const { title, body } = await this.uaDataService.getDailyUpdates();
+    const { title, body } = await this.dataService.getDailyUpdates();
     const subs = await this.storageService.getData();
     const expired = [];
     const payload = {
       title,
       body,
-      icon: 'https://raw.githubusercontent.com/TarasMoskovych/uadata-client/main/src/assets/icons/icon-192x192.png',
+      icon: 'https://raw.githubusercontent.com/TarasMoskovych/rws-rip-client/main/src/assets/icons/icon-192x192.png',
     };
 
     Promise.all(subs.map(sub => webpush.sendNotification(sub, JSON.stringify(this._getNotificationPayload(payload))).catch(() => expired.push(sub))))

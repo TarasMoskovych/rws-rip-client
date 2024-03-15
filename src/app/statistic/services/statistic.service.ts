@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable()
-export class UadataService {
+export class StatisticService {
 
   constructor(private readonly http: HttpClient) { }
 
@@ -25,4 +25,5 @@ export interface IStatisticItem {
   long_title: string;
   total: number;
   current: number;
+  icon: string;
 }

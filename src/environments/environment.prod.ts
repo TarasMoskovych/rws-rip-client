@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  proxyServer: 'https://uadata-proxy.vercel.app',
-  vapidPublicKey: 'BPluQCnBsVK0TrXMgahymWFOglkCTXq7kahgk6LNa0dfgznWbbN7enGRr6ZGicH8TGK2dy5IjAgU6w5wVxPsFHg',
+  proxyServer: 'https://rws-rip-proxy.vercel.app',
+  vapidPublicKey: 'BCx0pUtQYQ4MXX4yNpptVPr7S1fYIcNyhKIB2aIA_XoTQz5HlpmRodudKmHqbIJkHSzrCa0sn73XRMVOIrn-rGY',
 };

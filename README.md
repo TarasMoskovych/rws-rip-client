@@ -1,4 +1,6 @@
-# UadataClient
+# rws-rip-client
+
+> Angular client using [russianwarship.rip](https://russianwarship.rip/api-documentation/v2) API for the statistics of losses of the russian army in the hot phase of the war with Ukraine starting from February 24, 2022.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.2.
 

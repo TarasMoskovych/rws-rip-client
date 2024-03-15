@@ -1,4 +1,4 @@
-<div class="item">
+<div [title]="item.long_title" class="item">
   <h2 class="item__title transition">
     {{ item.title }}:
     <p class="item__value transition">
@@ -6,5 +6,7 @@
       <span *ngIf="item.current as diff" class="item__diff">+{{ diff }}</span>
     </p>
   </h2>
-  <p class="item__description transition">{{ item.long_title }}</p>
+  <div *ngIf="item.icon as icon" class="item__image-wrapper transition">
+    <img [src]="icon" alt="">
+  </div>
 </div>
