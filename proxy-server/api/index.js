@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
+const mongoose = require('mongoose');
 const PORT = process.env.PORT || 3001;
 const { russianWarshipRipService } = require('./services/russianwarship-rip.service');
 const { PushService } = require('./services/push.service');
@@ -31,5 +32,9 @@ app.post('/api/subscription', pushService.addSubscription.bind(pushService));
 app.get('/api/send-notification', pushService.sendNotification.bind(pushService));
 
 app.listen(PORT, () => console.log(`Server is running in port ${PORT}`));
+
+mongoose.connect(process.env.DATABASE_URL).then(() => {
+  console.log('Connected to database');
+});
 
 module.exports = app;

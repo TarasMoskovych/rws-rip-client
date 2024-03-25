@@ -1,9 +1,9 @@
 const webpush = require('web-push');
-const { JsonStorageService } = require('./json-storage.service');
+const { StorageService } = require('../database');
 
 class PushService {
   constructor(dataService) {
-    this.storageService = new JsonStorageService();
+    this.storageService = new StorageService();
     this.dataService = dataService;
     this.publicKey = process.env.PUBLIC_KEY;
     this.privateKey = process.env.PRIVATE_KEY;
@@ -27,9 +27,9 @@ class PushService {
       return res.status(400).send({ message: 'Request body is not valid.' });
     }
 
-    const subs = await this.storageService.getData();
+    const subscription = await this.storageService.findSubscription({ endpoint: sub.endpoint });
 
-    if (subs.find(({ endpoint }) => endpoint === sub.endpoint)) {
+    if (subscription) {
       return res.status(200).send({ message: 'Subscription already exists.' });
     } else {
       const payload = {
@@ -38,9 +38,7 @@ class PushService {
         btnTitle: 'Героям слава!'
       };
 
-      subs.push(sub);
-
-      this.storageService.saveData(JSON.stringify(subs))
+      this.storageService.addSubscription(sub)
         .then(() => webpush.sendNotification(sub, JSON.stringify(this._getNotificationPayload(payload))))
         .then(() => res.status(201).send({ message: 'Added subscription successfully.' }));
     }
@@ -54,28 +52,24 @@ class PushService {
     }
 
     const { title, body } = await this.dataService.getDailyUpdates();
-    const subs = await this.storageService.getData();
+    const subs = await this.storageService.getAllSubscriptions();
     const expired = [];
-    const payload = {
+    const notificationBody = JSON.stringify(this._getNotificationPayload({
       title,
       body,
       icon: 'https://raw.githubusercontent.com/TarasMoskovych/rws-rip-client/main/src/assets/icons/icon-192x192.png',
-    };
+    }));
 
-    Promise.all(subs.map(sub => webpush.sendNotification(sub, JSON.stringify(this._getNotificationPayload(payload))).catch(() => expired.push(sub))))
-      .then(() => this._removeExpiredSubscriptions(subs, expired))
+    Promise.all(subs.map(sub => webpush.sendNotification(sub, notificationBody).catch(() => expired.push(sub))))
+      .then(() => this._removeExpiredSubscriptions(expired))
       .then(() => res.status(200).json({ message: `Notification sent to ${subs.length} subscribers.`, expiredEndpoints: expired.map((sub) => sub.endpoint) }))
       .catch(err => res.status(500).send(err));
   }
 
-  async _removeExpiredSubscriptions(all, expired) {
-    const subs = all.filter(({ endpoint }) => !expired.find(({ endpoint: expiredEndpoint }) => endpoint === expiredEndpoint));
-
-    if (all.length !== subs.length) {
-      await this.storageService.saveData(JSON.stringify(subs));
+  async _removeExpiredSubscriptions(expired) {
+    for (const subscription of expired) {
+      await this.storageService.deleteSubscription({ endpoint: subscription.endpoint });
     }
-
-    return subs;
   }
 
   _getNotificationPayload({ title, body, icon, btnTitle = '👍' }) {

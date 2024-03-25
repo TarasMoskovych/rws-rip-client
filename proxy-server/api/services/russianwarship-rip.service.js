@@ -80,6 +80,7 @@ class russianWarshipRipService {
         title: 'Ракетні комплекси',
       },
     };
+    this.topCategoriesCount = 5;
   }
 
   async getData(_, res) {
@@ -105,7 +106,7 @@ class russianWarshipRipService {
     }
 
     if (!categories.length) {
-      const { total } = statistic.data.find(({ id }) => id === 'people');
+      const { total } = statistic.data.find(({ id }) => id === 'personnel_units');
       categories.push(`Загалом ${total} вбитих на ${statistic.currentDay} день війни`);
     }
 
